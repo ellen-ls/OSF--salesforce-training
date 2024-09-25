@@ -38,9 +38,8 @@
                         </div>
                     </div>
                     <div class="col-sm-7 email-description">${Resource.msg('description.form.emailsignup', 'homePage', null)}</div>
-                    <p>${Resource.msg('Developed by: Ellen Lima e Silva')}</p>
                 </div>
             </form>
-         </div>
+        </div>
     </div>
 </isdecorate>
