@@ -143,5 +143,7 @@
                 <isslot id="product-recommendations-m" description="Recommended products" context="global" context-object="${pdict.product.raw}" />
             </div>
         </div>
+
     </isobject>
+<isinclude template="product/suggestedProducts" />
 </isdecorate>

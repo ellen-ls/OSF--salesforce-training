@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog xmlns="http://www.demandware.com/xml/impex/catalog/2006-10-31" catalog-id="001D">
+    <header>
+        <image-settings>
+            <internal-location base-path="/tshirt"/>
+            <view-types>
+                <view-type>large</view-type>
+                <view-type>medium</view-type>
+                <view-type>small</view-type>
+                <view-type>swatch</view-type>
+            </view-types>
+            <variation-attribute-id>001D</variation-attribute-id>
+            <alt-pattern>${productname}</alt-pattern>
+            <title-pattern>${productname}</title-pattern>
+        </image-settings>
+    </header>
+
+    <category category-id="root">
+        <display-name xml:lang="x-default">Tshirt</display-name>
+        <online-flag>true</online-flag>
+        <template/>
+        <page-attributes>
+            <page-title xml:lang="x-default">Tshirt</page-title>
+            <page-description xml:lang="x-default">Tshirt</page-description>
+            <page-keywords xml:lang="x-default">Tshirt</page-keywords>
+        </page-attributes>
+        <custom-attributes>
+            <custom-attribute attribute-id="enableCompare">false</custom-attribute>
+            <custom-attribute attribute-id="showInMenu">true</custom-attribute>
+        </custom-attributes>
+        <attribute-groups>
+            <attribute-group group-id="001D">
+                <display-name xml:lang="x-default">Tshirt</display-name>
+                <attribute attribute-id="color" system="false"/>
+            </attribute-group>
+        </attribute-groups>
+        <refinement-definitions>
+            <refinement-definition type="attribute" bucket-type="none" attribute-id="color" system="false">
+                <display-name xml:lang="x-default">pink</display-name>
+                <value-set>search-result</value-set>
+                <sort-mode>value-name</sort-mode>
+                <sort-direction>ascending</sort-direction>
+                <cutoff-threshold>5</cutoff-threshold>
+            </refinement-definition>
+        </refinement-definitions>
+    </category>
+
+</catalog>

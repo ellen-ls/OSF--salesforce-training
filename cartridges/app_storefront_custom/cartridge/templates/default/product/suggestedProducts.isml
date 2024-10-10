@@ -1,0 +1,9 @@
+<div class="suggested-products">
+    <isloop items="${pdict.suggestedProducts}" var="product">
+        <div class="product-tile">
+            <h3>${product.name}</h3>
+            <img src="${product.imageURL}" alt="${product.name}" />
+            <p>${product.price}</p>
+        </div>
+    </isloop>
+</div>
