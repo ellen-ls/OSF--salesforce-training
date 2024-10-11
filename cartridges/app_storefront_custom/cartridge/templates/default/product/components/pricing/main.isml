@@ -1,14 +1,25 @@
 <isif condition="${price.type === 'tiered'}">
     <div class="price">
         <isinclude template="/product/components/pricing/tiered" />
+
     </div>
 <iselseif condition="${price.type === 'range'}">
-    <div class="price">
-        <isinclude template="/product/components/pricing/range" />
+        <div class="price">
+            <isinclude template="/product/components/pricing/range" />
+        </div>
+        <iselse>
+            <div class="price">
+                <isset name="isLowPrice" value="${}" scope="page" />
+                <isinclude template="/product/components/pricing/default" />
+            </div>
+
+    <isif condition="${!empty(pdict.discountPercentage)}">
+   <div class="discount-percentage">
+        ${Resource.msgf('best.deal.label', 'product', null, pdict.discountPercentage)}
     </div>
-<iselse>
-    <div class="price">
-        <isset name="isLowPrice" value="${}" scope="page" />
-        <isinclude template="/product/components/pricing/default" />
-    </div>
+    </isif>
+            <div class="discount-percentage">
+            ${'Test ' + pdict.discountPercentage + ' % OFF'}
+            </div>
+        
 </isif>

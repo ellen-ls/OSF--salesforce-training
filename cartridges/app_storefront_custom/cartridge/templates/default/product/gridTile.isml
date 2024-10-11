@@ -2,4 +2,5 @@
 <isset name="product" value="${pdict.product}" scope="page" />
 <div class="product" data-pid="${product.id}">
     <isinclude template="product/productTile" />
+    
 </div>

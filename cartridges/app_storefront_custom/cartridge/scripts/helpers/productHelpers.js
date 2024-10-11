@@ -488,6 +488,25 @@ function getProductSearchHit(apiProduct) {
     return hit;
 }
 
+/**
+ * Calcula a porcentagem de desconto com base no preço original e no preço de venda.
+ *
+ * @param {number} standardPrice - O preço original do produto.
+ * @param {number} salePrice - O preço de venda do produto.
+ * @returns {number|null} - A porcentagem de desconto arredondada, ou null se não houver desconto.
+ *   
+ */
+function calculatePercentageOff(standardPrice, salePrice) {
+    var discountPercentage = null;
+
+    if (salePrice < standardPrice) {
+        discountPercentage = ((standardPrice - salePrice) / standardPrice) * 100;
+    }
+
+    return discountPercentage;
+}
+
+
 module.exports = {
     getOptionValues: getOptionValues,
     getOptions: getOptions,
@@ -503,5 +522,7 @@ module.exports = {
     getAllBreadcrumbs: getAllBreadcrumbs,
     getResources: getResources,
     getPageDesignerProductPage: getPageDesignerProductPage,
-    getProductSearchHit: getProductSearchHit
+    getProductSearchHit: getProductSearchHit,
+    calculatePercentageOff: calculatePercentageOff
 };
+

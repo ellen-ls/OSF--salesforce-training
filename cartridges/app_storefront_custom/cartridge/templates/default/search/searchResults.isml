@@ -4,6 +4,5 @@
         assets.addJs('/js/search.js');
         assets.addCss('/css/search.css');
     </isscript>
-
     <isinclude template="search/searchResultsNoDecorator" />
 </isdecorate>

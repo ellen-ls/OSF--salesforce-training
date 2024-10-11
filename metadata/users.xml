@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users xmlns="http://www.demandware.com/xml/impex/user/2007-09-05">
+    <user login="ellen.l.s1996@gmail.com" enabled-flag="true">
+        <credentials>
+            <external-id>637b0e72-7409-4ea3-9ece-d1061c39d2ae</external-id>
+        </credentials>
+        <profile>
+            <first-name>Ellen Lima</first-name>
+            <last-name>Silva</last-name>
+            <email>ellen.l.s1996@gmail.com</email>
+            <phone-mobile>85999734398</phone-mobile>
+            <preferred-data-locale>none</preferred-data-locale>
+        </profile>
+    </user>
+
+</users>
