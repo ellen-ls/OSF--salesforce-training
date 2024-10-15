@@ -13,13 +13,13 @@
                 <isinclude template="/product/components/pricing/default" />
             </div>
 
-    <isif condition="${!empty(pdict.discountPercentage)}">
-   <div class="discount-percentage">
-        ${Resource.msgf('best.deal.label', 'product', null, pdict.discountPercentage)}
+<isif condition="${!empty(pdict.discountPercentage)}">
+    <div class="discount-percentage">
+        ${Resource.msgf('best.deal.label', 'messages', null, pdict.discountPercentage)}
     </div>
-    </isif>
-            <div class="discount-percentage">
-            ${'Test ' + pdict.discountPercentage + ' % OFF'}
-            </div>
+</isif>
+<div class="discount-percentage">
+${'Test ' + pdict.discountPercentage + ' % OFF'}
+</div>
         
 </isif>

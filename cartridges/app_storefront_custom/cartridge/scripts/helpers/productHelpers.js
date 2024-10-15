@@ -488,7 +488,6 @@ function getProductSearchHit(apiProduct) {
     return hit;
 }
 
-// productHelpers.js
 
 /**
  * Calculates the discount percentage based on the standard and sale prices.
@@ -500,13 +499,13 @@ function getProductSearchHit(apiProduct) {
 function calculatePercentageOff(standardPrice, salePrice) {
     var discountPercentage = null;
 
+    // Check if the product has a sale price and is less than the standard price
     if (salePrice < standardPrice) {
         discountPercentage = ((standardPrice - salePrice) / standardPrice) * 100;
     }
 
     return discountPercentage;
 }
-
 
 var ProductMgr = require('dw/catalog/ProductMgr');
 var CatalogMgr = require('dw/catalog/CatalogMgr');
