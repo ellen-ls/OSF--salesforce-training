@@ -507,6 +507,52 @@ function calculatePercentageOff(standardPrice, salePrice) {
 }
 
 
+var ProductMgr = require('dw/catalog/ProductMgr');
+var CatalogMgr = require('dw/catalog/CatalogMgr');
+var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+var ProductSearch = require('*/cartridge/models/search/productSearch');
+
+/**
+ * Retrieves a list of suggested products based on the category of the given product ID.
+ *
+ * @param {string} productId - The ID of the product for which to find suggested products.
+ * @returns {Array<Object>} An array of suggested product objects, each containing ID, name, imageURL, and price.
+ */
+function getSuggestedProducts(productId) {
+    var suggestedProducts = [];
+    var product = ProductMgr.getProduct(productId);
+
+    if (product && product.isCategorized()) {
+        var apiProductSearch = new ProductSearchModel();
+        apiProductSearch.setCategoryID(product.getPrimaryCategory().ID);
+        apiProductSearch.search();
+
+        var productSearch = new ProductSearch(
+            apiProductSearch,
+            {},
+            null,
+            CatalogMgr.getSortingOptions(),
+            CatalogMgr.getSiteCatalog().getRoot()
+        );
+
+        var productIds = productSearch.productIds;
+        for (var index = 0; index < Math.min(4, productIds.length); index++) {
+            var suggestedProductId = productIds[index].productID;
+            var suggestedProduct = ProductMgr.getProduct(suggestedProductId);
+            if (suggestedProduct) {
+                suggestedProducts.push({
+                    ID: suggestedProduct.ID,
+                    name: suggestedProduct.name,
+                    imageURL: suggestedProduct.getImage('medium').getAbsURL().toString(),
+                    price: suggestedProduct.priceModel.price.value
+                });
+            }
+        }
+    }
+
+    return suggestedProducts;
+}
+
 module.exports = {
     getOptionValues: getOptionValues,
     getOptions: getOptions,
@@ -523,6 +569,7 @@ module.exports = {
     getResources: getResources,
     getPageDesignerProductPage: getPageDesignerProductPage,
     getProductSearchHit: getProductSearchHit,
-    calculatePercentageOff: calculatePercentageOff
+    calculatePercentageOff: calculatePercentageOff,
+    getSuggestedProducts: getSuggestedProducts
 };
 

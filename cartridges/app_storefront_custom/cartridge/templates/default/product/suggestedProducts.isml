@@ -6,4 +6,4 @@
             <p>${product.price}</p>
         </div>
     </isloop>
-</div>
+</div> 
