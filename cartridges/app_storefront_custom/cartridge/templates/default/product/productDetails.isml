@@ -146,4 +146,5 @@
 
     </isobject>
 <isinclude template="product/suggestedProducts" />
+
 </isdecorate>

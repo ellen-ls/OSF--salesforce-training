@@ -488,22 +488,133 @@ function getProductSearchHit(apiProduct) {
     return hit;
 }
 
+
 /**
- * Calcula a porcentagem de desconto com base no preço original e no preço de venda.
+ * Calculates the discount percentage based on the standard and sale prices.
  *
- * @param {number} standardPrice - O preço original do produto.
- * @param {number} salePrice - O preço de venda do produto.
- * @returns {number|null} - A porcentagem de desconto arredondada, ou null se não houver desconto.
- *   
+ * @param {number} standardPrice - The original price of the product.
+ * @param {number} salePrice - The sale price of the product.
+ * @returns {number|null} - The discount percentage, or null if no discount.
  */
 function calculatePercentageOff(standardPrice, salePrice) {
     var discountPercentage = null;
 
+    // Check if the product has a sale price and is less than the standard price
     if (salePrice < standardPrice) {
         discountPercentage = ((standardPrice - salePrice) / standardPrice) * 100;
     }
 
     return discountPercentage;
+}
+
+var ProductMgr = require('dw/catalog/ProductMgr');
+var CatalogMgr = require('dw/catalog/CatalogMgr');
+var ProductSearchModel = require('dw/catalog/ProductSearchModel');
+var ProductSearch = require('*/cartridge/models/search/productSearch');
+
+/**
+ * Retrieves a list of suggested products based on the category of the given product ID.
+ *
+ * @param {string} productId - The ID of the product for which to find suggested products.
+ * @returns {Array<Object>} An array of suggested product objects, each containing ID, name, imageURL, price, color, and rating.
+ */
+function getSuggestedProducts(productId) {
+    var suggestedProducts = [];
+    var product = ProductMgr.getProduct(productId);
+
+    if (product && product.isCategorized()) {
+        var primaryCategory = product.getPrimaryCategory();
+        if (primaryCategory) {
+            var apiProductSearch = new ProductSearchModel();
+            apiProductSearch.setCategoryID(primaryCategory.ID);
+            apiProductSearch.search();
+
+            var productSearchHits = apiProductSearch.getProductSearchHits();
+            var count = 0; // Contador para limitar a 4 produtos
+
+            while (productSearchHits.hasNext() && count < 4) {
+                var productSearchHit = productSearchHits.next();
+                var suggestedProduct = productSearchHit.getProduct();
+
+                if (suggestedProduct) {
+                    var image = suggestedProduct.getImage('medium');
+                    var imageURL = image ? image.getAbsURL().toString() : 'Imagem não disponível';
+
+                    // Recupera o preço do produto
+                    var priceModel = suggestedProduct.priceModel;
+                    var price = priceModel && priceModel.price ? priceModel.price.value : 'Preço não disponível';
+
+                    // Recupera a cor do produto (exemplo, pode variar conforme a implementação)
+                    var color = suggestedProduct.custom.color || 'Cor não disponível';
+
+                    // Recupera a avaliação do produto, se existir
+                    
+
+                    suggestedProducts.push({
+                        ID: suggestedProduct.ID,
+                        name: suggestedProduct.name || 'Nome não disponível',
+                        imageURL: imageURL,
+                        price: price,
+                        color: color,
+                        
+                    });
+
+                    count++; // Incrementa o contador
+                }
+            }
+        }
+    }
+
+    return suggestedProducts;
+}
+
+var ProductMgr = require('dw/catalog/ProductMgr');
+
+/**
+ * Retrieves the price model of a product.
+ *
+ * @param {dw.catalog.Product} product - The product object.
+ * @returns {Object} An object containing the price or a message if the price is unavailable.
+ */
+function getPriceModel(product) {
+    if (!product) {
+        return { price: 'Preço não disponível' };
+    }
+
+    var priceModel = product.priceModel;
+    var price = priceModel && priceModel.price ? priceModel.price.value : 'Preço não disponível';
+
+    return { price: price };
+}
+
+/**
+ * Retrieves detailed information about a product.
+ *
+ * @param {string} productId - The ID of the product to retrieve details for.
+ * @returns {Object|null} An object containing product details or null if the product is not found.
+ */
+function getProductDetails(productId) {
+    var product = ProductMgr.getProduct(productId);
+    if (!product) {
+        return null;
+    }
+
+    var image = product.getImage('medium');
+    var imageURL = image ? image.getAbsURL().toString() : 'Imagem não disponível';
+
+    var priceInfo = getPriceModel(product);
+
+    var color = product.custom.color || 'Cor não disponível';
+    
+
+    return {
+        ID: product.ID,
+        name: product.name || 'Nome não disponível',
+        imageURL: imageURL,
+        price: priceInfo.price,
+        color: color,
+              
+    };
 }
 
 
@@ -523,6 +634,9 @@ module.exports = {
     getResources: getResources,
     getPageDesignerProductPage: getPageDesignerProductPage,
     getProductSearchHit: getProductSearchHit,
-    calculatePercentageOff: calculatePercentageOff
+    calculatePercentageOff: calculatePercentageOff,
+    getSuggestedProducts: getSuggestedProducts,
+    getProductDetails: getProductDetails,
+    getPriceModel: getPriceModel
 };
 
