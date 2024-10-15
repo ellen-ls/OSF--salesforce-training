@@ -1,9 +1,13 @@
-<div class="suggested-products">
-    <isloop items="${pdict.suggestedProducts}" var="product">
-        <div class="product-tile">
-            <h3>${product.name}</h3>
-            <img src="${product.imageURL}" alt="${product.name}" />
-            <p>${product.price}</p>
+<div class="row product-grid">
+    <!-- Loop through the suggested products -->
+    <isloop items="${pdict.suggestedProducts}" var="product" status="loopstatus">
+        <div class="col-md-3 product-tile">
+            <!-- Check if the product is defined -->
+            <isif condition="${product != undefined}">
+               
+                <!-- Include the template to show product details -->
+                <isinclude url="${URLUtils.url('Tile-Show', 'pid', product.ID, 'pview', 'tile', 'ratings', true, 'swatches', true)}"/>
+            </isif>
         </div>
     </isloop>
-</div> 
+</div>

@@ -1,17 +1,16 @@
 'use strict';
 
 var server = require('server');
-// var controller = require('app_storefront_base/cartridge/controllers/Tile');
+var controller = require('app_storefront_base/cartridge/controllers/Tile');
 server.extend(module.superModule);
-
 
 server.append('Show', function(req, res, next) {
     var productHelpers = require('*/cartridge/scripts/helpers/productHelpers');
-    
-    var viewData = res.getViewData();
-    
-    // Log viewData to inspect the structure
     var Logger = require('dw/system/Logger');
+
+    var viewData = res.getViewData();
+
+    // Log viewData to inspect the structure
     Logger.debug('View Data: {0}', JSON.stringify(viewData));
 
     var discountPercentage = null;
@@ -32,7 +31,5 @@ server.append('Show', function(req, res, next) {
 
     next();
 });
-
-
 
 module.exports = server.exports();
