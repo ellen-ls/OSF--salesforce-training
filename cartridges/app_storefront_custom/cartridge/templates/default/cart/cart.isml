@@ -92,4 +92,14 @@
         <isslot id="cart-recommendations-m" description="Recommended products" context="global" />
     </div>
     ${pdict.example}
+
+
+<!-- Check if the cart message should be displayed -->
+
+<isif condition="${pdict.showCartMessage}">
+    <div class="cart-message">
+        ${pdict.cartMessage}
+    </div>
+
+</isif> 
 </isdecorate>
