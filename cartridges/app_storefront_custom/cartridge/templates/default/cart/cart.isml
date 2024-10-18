@@ -65,7 +65,14 @@
                         </isif>
                     </isloop>
                     <isinclude template="cart/cartApproachingDiscount" />
+                       <div class="content-asset" style="background-color:#ffb700; padding:5px; max-width:500px;">
+                        ${pdict.cartMessage}
+                        </div>
+                    </isif>
                 </div>
+                
+                <isif condition="${pdict.showCartMessage}">
+
                 <!---totals, and checkout actions--->
                 <div class="col-sm-5 col-md-4 totals">
                     <isinclude template="cart/cartPromoCode" />
@@ -79,6 +86,7 @@
                     <div class="row">
                         <div class="col-12 checkout-continue">
                             <isinclude template="cart/checkoutButtons" />
+                             
                         </div>
                     </div>
                 </div>
@@ -91,15 +99,5 @@
     <div class="container">
         <isslot id="cart-recommendations-m" description="Recommended products" context="global" />
     </div>
-    ${pdict.example}
 
-
-<!-- Check if the cart message should be displayed -->
-
-<isif condition="${pdict.showCartMessage}">
-    <div class="cart-message">
-        ${pdict.cartMessage}
-    </div>
-
-</isif> 
 </isdecorate>

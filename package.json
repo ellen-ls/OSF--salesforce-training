@@ -16,7 +16,9 @@
     "lint:isml": "isml-linter --build",
     "fix:js": "eslint --fix \"cartridges/**/*.js\"",
     "fix:scss": "stylelint --allow-empty-input --fix \"cartridges/**/*.scss\"",
-    "fix:isml": "isml-linter --autofix"
+    "fix:isml": "isml-linter --autofix",
+    "build-css": "sass cartridges/app_storefront_custom/cartridge/static/default/scss/cart.scss:cartridges/app_storefront_custom/cartridge/static/default/css/cart.css"
+
   },
   "repository": {
     "type": "git",
